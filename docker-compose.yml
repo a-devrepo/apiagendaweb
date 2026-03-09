@@ -1,0 +1,38 @@
+services:
+  db_agendaweb:
+    image: postgres:16
+    container_name: postgres-bdagendaweb
+    environment:
+      POSTGRES_DB: bd-agendaweb
+      POSTGRES_USER: user-agendaweb
+      POSTGRES_PASSWORD: pass-agendaweb
+    ports:
+      - "5436:5432"
+    networks:
+      - rede-agendaweb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin-agendaweb
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5051:80"
+    depends_on:
+      - db_agendaweb
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - rede-agendaweb
+
+networks:
+  rede-agendaweb:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:
