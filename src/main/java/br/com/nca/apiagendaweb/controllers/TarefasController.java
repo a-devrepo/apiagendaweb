@@ -1,6 +1,7 @@
 package br.com.nca.apiagendaweb.controllers;
 
 import br.com.nca.apiagendaweb.dtos.TarefaRequest;
+import br.com.nca.apiagendaweb.services.TarefaService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,9 +10,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/tarefas")
 public class TarefasController {
 
+    private TarefaService tarefaService;
+
+    public TarefasController(TarefaService tarefaService) {
+        this.tarefaService = tarefaService;
+    }
+
     @PostMapping
     public ResponseEntity<?> post(@Valid @RequestBody TarefaRequest request){
-        return ResponseEntity.ok().build();
+        var response = tarefaService.cadastrar(request);
+        return ResponseEntity.ok().body(response);
     }
 
     @PutMapping

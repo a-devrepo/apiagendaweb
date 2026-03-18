@@ -2,7 +2,9 @@ package br.com.nca.apiagendaweb.entities;
 
 import br.com.nca.apiagendaweb.enums.Prioridade;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -13,6 +15,8 @@ import java.util.UUID;
 @Table(name = "tarefas")
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Tarefa {
 
     @Id
@@ -32,18 +36,10 @@ public class Tarefa {
     @Column(name = "prioridade", nullable = false)
     private Prioridade prioridade;
 
+    @Column(name = "usuario_id", nullable = false)
+    private UUID usuarioId;
+
     @ManyToOne
-    @JoinColumn(name = "categoriaid",nullable = false)
+    @JoinColumn(name = "categoria_id",nullable = false)
     private Categoria categoria;
-
-    public Tarefa(){}
-
-    public Tarefa(UUID id, String nome, LocalDate data, LocalTime hora, Prioridade prioridade, Categoria categoria) {
-        this.id = id;
-        this.nome = nome;
-        this.data = data;
-        this.hora = hora;
-        this.prioridade = prioridade;
-        this.categoria = categoria;
-    }
 }
