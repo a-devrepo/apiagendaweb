@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Service
 public class TarefaService {
@@ -55,6 +56,8 @@ public class TarefaService {
 
         tarefa.setPrioridade(Prioridade.valueOf(request.getPrioridade()));
 
+        tarefa.setUsuarioId(UUID.randomUUID());
+
         return tarefa;
     }
 
@@ -65,7 +68,7 @@ public class TarefaService {
         response.setId(tarefa.getId());
         response.setNome(tarefa.getNome());
         response.setData(tarefa.getData().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        response.setData(tarefa.getHora().format(DateTimeFormatter.ofPattern("HH:mm")));
+        response.setHora(tarefa.getHora().format(DateTimeFormatter.ofPattern("HH:mm")));
         response.setPrioridade(tarefa.getPrioridade().toString());
 
         response.setCategoria(new CategoriaResponse());
