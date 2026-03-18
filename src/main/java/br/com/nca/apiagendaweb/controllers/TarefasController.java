@@ -1,5 +1,7 @@
 package br.com.nca.apiagendaweb.controllers;
 
+import br.com.nca.apiagendaweb.dtos.TarefaRequest;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class TarefasController {
 
     @PostMapping
-    public ResponseEntity<?> post(){
+    public ResponseEntity<?> post(@Valid @RequestBody TarefaRequest request){
         return ResponseEntity.ok().build();
     }
 
