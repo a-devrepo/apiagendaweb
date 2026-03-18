@@ -13,7 +13,11 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class TarefaService {
@@ -41,6 +45,14 @@ public class TarefaService {
         tarefaRepository.save(tarefa);
 
         return toTarefaResponse(tarefa);
+    }
+
+
+    public List<TarefaResponse> consultar() {
+
+        var tarefas = tarefaRepository.findAll();
+
+        return tarefas.stream().map(tarefa -> toTarefaResponse(tarefa)).toList();
     }
 
     private Tarefa toTarefa(TarefaRequest request) {

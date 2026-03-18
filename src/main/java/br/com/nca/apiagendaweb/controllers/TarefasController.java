@@ -29,7 +29,8 @@ public class TarefasController {
 
     @GetMapping
     public ResponseEntity<?> get(){
-        return ResponseEntity.ok().build();
+        var response = tarefaService.consultar();
+        return ResponseEntity.ok().body(response);
     }
 
     @DeleteMapping
